@@ -5,7 +5,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 TOKEN = os.environ.get("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("✅ البوت شغال! اهلا بك")
+    await update.message.reply_text("✅ البوت شغال! اهلا بك في بوت الفواتير")
 
 def main():
     if not TOKEN:
