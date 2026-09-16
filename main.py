@@ -1,22 +1,27 @@
 import os
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 
 TOKEN = os.environ.get("TOKEN")
-ADMIN_ID = int(os.environ.get("ADMIN_ID", 0))
+ADMIN_ID = int(os.environ.get("ADMIN_ID"))
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-    if user_id == ADMIN_ID:
-        await update.message.reply_text("هلا والله يا ادمن جمال 🚀 البوت شغال 100%")
-    else:
-        await update.message.reply_text("اهلاً، هذا بوت خاص بجمال")
+async def start(update, context):
+    await update.message.reply_text(f"اهلا {update.effective_user.first_name} انا شغال ✅")
+
+async def echo(update, context):
+    await context.bot.send_message(chat_id=ADMIN_ID, text=f"رسالة جديدة من {update.effective_user.first_name}: {update.message.text}")
+    await update.message.reply_text("تم ارسال رسالتك للادمن")
 
 def main():
-    application = ApplicationBuilder().token(TOKEN).build()
-    application.add_handler(CommandHandler("start", start))
+    if not TOKEN:
+        raise ValueError("مافي TOKEN في Variables")
+    
+    app = ApplicationBuilder().token(TOKEN).build()
+    
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+    
     print("Bot is running...")
-    application.run_polling()
+    app.run_polling()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
