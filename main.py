@@ -1,8 +1,11 @@
 import os
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
+
 import telegram
-print(f"PTB Version: {telegram.__version__}") # هذا السطر جديد
+print(f"PTB Version: {telegram.__version__}") # هذا جديد
+import sys
+print(f"Python Version: {sys.version}") # وهذا جديد
 
 TOKEN = os.environ.get("BOT_TOKEN")
 
@@ -13,7 +16,7 @@ def main():
     if not TOKEN:
         print("BOT_TOKEN مش موجود!")
         return
-    print("البوت اشتغل...") # هذا السطر جديد
+    print("البوت اشتغل...")
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.run_polling()
