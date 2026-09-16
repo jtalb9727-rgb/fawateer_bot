@@ -1,18 +1,29 @@
 import os
-from telegram.ext import Application, CommandHandler
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
 
-# ناخذ التوكن من Railway Variables
+# نقرأ التوكن من Variables
 TOKEN = os.environ.get("BOT_TOKEN")
 
-# امر /start = للتأكد ان البوت وصل
-async def start(update, context):
-    await update.message.reply_text("✅ تم الاتصال بنجاح\nالبوت شغال على Railway 100%")
+# دالة /start
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("✅ البوت شغال! اهلا بك في بوت الفواتير")
 
 def main():
+    # نتأكد ان التوكن موجود
+    if not TOKEN:
+        print("BOT_TOKEN مش موجود!")
+        return
+    
+    # ننشئ التطبيق
     app = Application.builder().token(TOKEN).build()
+    
+    # نضيف امر /start
     app.add_handler(CommandHandler("start", start))
+    
+    # نشغل البوت
     print("البوت اشتغل...")
     app.run_polling()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
