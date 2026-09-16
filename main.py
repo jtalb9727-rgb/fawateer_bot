@@ -9,7 +9,8 @@ def start(update, context):
 
 def main():
     updater = Updater(TOKEN, use_context=True)
-    updater.dispatcher.add_handler(CommandHandler('start', start))
+    dp = updater.dispatcher
+    dp.add_handler(CommandHandler('start', start))
     updater.start_polling()
     updater.idle()
 
