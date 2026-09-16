@@ -1,1 +1,1 @@
-fawateer_bot: python main.py
+fawateer_bot:python main.py
