@@ -1,1 +1,1 @@
-worker: python main.py
+fawateer=bot: python main.py
