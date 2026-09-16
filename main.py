@@ -5,7 +5,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 TOKEN = os.environ.get('TOKEN')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("البوت شغال ✅")
+    await update.message.reply_text("البوت شغال على 20.7 ✅")
 
 def main():
     app = Application.builder().token(TOKEN).build()
